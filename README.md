@@ -1,11 +1,12 @@
-# es6-class-emulation
-ES6 classes without a class keyword but with class variables
+# noclass
+Here is an example of ES6 classes without a class keyword but with class variables. Looks the same as classes and has the same structure.
 
 ```javascript
 // Helper
 const $constructor = Symbol();
-const $extends = (parent, child) =>
-  Object.assign(Object.create(parent), child);
+const $extends = (parent, child) => {
+  return Object.assign(Object.create(parent), child);
+}
 const $new = (object, ...args) => {
   let instance = Object.create(object);
   instance[$constructor].call(instance, ...args);
