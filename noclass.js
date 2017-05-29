@@ -10,8 +10,9 @@ function $new(object, ...args){
   return instance;
 }
 
-function $super(parent, context, ...args){
-  parent[$constructor].call(context, ...args)
+function $super(context, ...args){
+  Object.getPrototypeOf(Object.getPrototypeOf(context))[$constructor]
+    .call(context, ...args);
 }
 
 export {$new, $extends, $constructor, $super};

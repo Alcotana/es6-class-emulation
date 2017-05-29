@@ -7,8 +7,9 @@ const $new = (object, ...args) => {
   instance[$constructor].call(instance, ...args);
   return instance;
 }
-const $super = (parent, context, ...args) => {
-  parent[$constructor].call(context, ...args)
+const $super = (context, ...args) => {
+  Object.getPrototypeOf(Object.getPrototypeOf(context))[$constructor]
+    .call(context, ...args);
 }
 
 // class
@@ -32,7 +33,7 @@ var Bar = $extends(Foo, {
 
   // constructor
   [$constructor](who){
-    $super(Foo, this, who);
+    $super(this, who);
     this.subtype = 'barashek';
   },
 
