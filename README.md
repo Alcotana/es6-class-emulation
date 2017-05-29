@@ -1,5 +1,6 @@
 # noclass
-Here is an example of ES6 classes without a class keyword but with class variables. Looks the same as classes and has the same structure.
+Here is an example of ES6 classes without a class keyword but with class variables.
+ Looks the same as classes and has the same structure internally.
 
 ```javascript
 // Helper
