@@ -1,7 +1,3 @@
-# es6-class-emulation
-ES6 classes without a class keyword but with class variables
-
-```javascript
 // Helper
 const $constructor = Symbol();
 const $extends = (parent, child) =>
@@ -53,4 +49,3 @@ var a1 = $new(Foo, 'a1');
 var b1 = $new(Bar, 'b1');
 console.log(a1, b1);
 console.log('b1.classVariable', b1.classVariable);
-```
