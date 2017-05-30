@@ -37,11 +37,6 @@ var Bar = $extends(Foo, {
     console.log('Woof');
   }
 });
-
-var a1 = $new(Foo, 'a1');
-var b1 = $new(Bar, 'b1');
-console.log(a1, b1);
-console.log('b1.classVariable', b1.classVariable);
 ```
 
 ### Multiple "inheritance"
@@ -105,9 +100,4 @@ var Bar = $extends([Foo, Tester, Logger], {
     console.log('Woof');
   }
 });
-
-var a1 = $new(Foo, 'a1');
-var b1 = $new(Bar, 'b1');
-console.log(a1, b1);
-console.log('b1.classVariable', b1.classVariable);
 ```

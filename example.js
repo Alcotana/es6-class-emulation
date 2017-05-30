@@ -1,15 +1,24 @@
 // Helper
 const $constructor = Symbol();
-const $extends = (parent, child) =>
-  Object.assign(Object.create(parent), child);
+const $extends = (parents, child) => {
+  if(Array.isArray(parents) && parents.length){
+    parents.reduce((proto, parent) => {
+      Object.setPrototypeOf(proto, parent);
+      return parent;
+    });
+    parents = parents[0];
+  }
+  return Object.assign(Object.create(parents), child);
+}
 const $new = (object, ...args) => {
   let instance = Object.create(object);
   instance[$constructor].call(instance, ...args);
   return instance;
 }
 const $super = (context, ...args) => {
-  Object.getPrototypeOf(Object.getPrototypeOf(context))[$constructor]
-    .call(context, ...args);
+  Object.getPrototypeOf(
+    Object.getPrototypeOf(context)
+  )[$constructor].call(context, ...args);
 }
 
 // class
@@ -28,8 +37,33 @@ var Foo = {
   }
 }
 
+var Logger = {
+  logEnabled: true,
+  log(){
+    if(logEnabled){
+      console.log('Log saved.');
+    } else {
+      throw Error('Log disabled');
+    }
+  },
+  startLogging(num){
+    this.logEnabled = true;
+  },
+  stopLogging(num){
+    this.logEnabled = false;
+  },
+}
+
+var Tester = {
+  test(){
+    if(this.speak){
+      console.log('Can speak.');
+    }
+  }
+}
+
 // class extends Foo
-var Bar = $extends(Foo, {
+var Bar = $extends([Foo, Tester, Logger], {
 
   // constructor
   [$constructor](who){
