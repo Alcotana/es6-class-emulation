@@ -1,7 +1,14 @@
 const $constructor = Symbol();
 
-function $extends(parent, child){
-  Object.assign(Object.create(parent), child);
+function $extends(parents, child){
+  if(Array.isArray(parents) && parents.length){
+    parents.reduce((proto, parent) => {
+      Object.setPrototypeOf(proto, parent);
+      return parent;
+    });
+    parents = parents[0];
+  }
+  return Object.assign(Object.create(parents), child);
 }
 
 function $new(object, ...args){
@@ -11,8 +18,9 @@ function $new(object, ...args){
 }
 
 function $super(context, ...args){
-  Object.getPrototypeOf(Object.getPrototypeOf(context))[$constructor]
-    .call(context, ...args);
+  Object.getPrototypeOf(
+    Object.getPrototypeOf(context))
+      [$constructor].call(context, ...args);
 }
 
 export {$new, $extends, $constructor, $super};
